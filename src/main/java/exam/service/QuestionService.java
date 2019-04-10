@@ -1,0 +1,54 @@
+package exam.service;
+
+import exam.model.Question;
+import exam.service.base.BaseService;
+
+import java.util.List;
+
+public interface QuestionService extends BaseService<Question> {
+
+	/**
+	 * 获取教师的全部单选题
+	 * @param tid 教师id
+	 */
+	List<Question> getSingles(String tid);
+	
+	/**
+	 * 获取教师的全部多选题
+	 * @param tid 教师id
+	 */
+	List<Question> getMultis(String tid);
+	
+	/**
+	 * 获取教师的全部判断题
+	 * @param tid 教师id
+	 */
+	List<Question> getJudges(String tid);
+	
+	/**
+	 * 检查题目是否被试卷使用
+	 * @param id 题目id
+	 */
+	boolean isUsedByExam(int id);
+	
+	/**
+	 * 根据试题查找与之相关联的试题
+	 * 此方法不用find实现而单独做一个接口是因为试卷和题目的关联是通过一张表建立的，所以试题对象并不能获取试卷的信息
+	 * @param eid 试卷id
+	 * @return
+	 */
+	 List<Question> findByExam(int eid);
+	
+	/**
+	 * 查询指定题目的正答率
+	 * @param qid 题目id
+	 * @return 如果此题目没有人做过，那么返回null
+	 */
+	Double articulationScore(int qid);
+
+    List<Question> findQuestionListByKid(Integer kid);
+
+	List<Question> findQuestionBySid(String sid);
+
+    List<Question> findByEntity(Question condition);
+}

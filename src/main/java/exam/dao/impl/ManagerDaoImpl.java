@@ -1,0 +1,41 @@
+package exam.dao.impl;
+
+import exam.dao.ManagerDao;
+import exam.dao.base.BaseDaoImpl;
+import exam.model.role.Manager;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+@Repository("managerDao")
+public class ManagerDaoImpl extends BaseDaoImpl<Manager> implements ManagerDao {
+
+    private static RowMapper<Manager> rowMapper;
+
+    static {
+        rowMapper = new RowMapper<Manager>() {
+            public Manager mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Manager manager = new Manager();
+                manager.setId(rs.getInt("id"));
+                manager.setName(rs.getString("name"));
+                manager.setPassword(rs.getString("password"));
+                manager.setModified(rs.getBoolean("modified"));
+                return manager;
+            }
+        };
+    }
+
+    public String getCountSql() {
+        return "select count(id) from manager";
+    }
+
+    public String getSql() {
+        return "select * from manager";
+    }
+
+    public RowMapper<Manager> getRowMapper() {
+        return rowMapper;
+    }
+}

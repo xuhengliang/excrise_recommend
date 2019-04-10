@@ -1,0 +1,34 @@
+package exam.service;
+
+import exam.dto.ERView;
+import exam.dto.StatisticsData;
+import exam.dto.StudentReport;
+import exam.model.ExaminationResult;
+import exam.service.base.BaseService;
+
+import java.util.List;
+
+public interface ExaminationResultService extends BaseService<ExaminationResult> {
+
+	/**
+	 * 返回一个ERView视图，用于在客户端展现考试结果(含具体错误信息)
+	 * @param id ExaminationResult id
+	 * @return
+	 */
+	ERView getViewById(int id);
+	
+	/**
+	 * 获取给定试卷的统计数据
+	 * @param eid 试卷id
+	 * @return 如果返回null，那么说明没有人参加此次考试，也就不需要统计了
+	 */
+	StatisticsData getStatisticsData(int eid);
+	
+	/**
+	 * 查询指定试卷的成绩报告数据
+	 * @param eid 试卷id
+	 * @return
+	 */
+	 List<StudentReport> getReportData(int eid);
+	
+}
